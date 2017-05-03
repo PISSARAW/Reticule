@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Reticule.Models.Salle>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Créer un Nouveau", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NomSalle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Batiment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Etage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Equipement_Fixe.NomEF)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Equipement_Mobile.NomEM)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomSalle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Batiment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Etage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Equipement_Fixe.NomEF)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Equipement_Mobile.NomEM)
+        </td>
+        <td>
+            @Html.ActionLink("Modifier", "Edit", new { id=item.SalleID }) |
+            @Html.ActionLink("Détails", "Details", new { id=item.SalleID }) |
+            @Html.ActionLink("Supprimer", "Delete", new { id=item.SalleID })
+        </td>
+    </tr>
+}
+
+</table>

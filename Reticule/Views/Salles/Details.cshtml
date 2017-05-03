@@ -1,0 +1,58 @@
+﻿@model Reticule.Models.Salle
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Détails</h2>
+
+<div>
+    <h4>Salle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomSalle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomSalle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Batiment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Batiment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Etage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Etage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipement_Fixe.NomEF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipement_Fixe.NomEF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipement_Mobile.NomEM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipement_Mobile.NomEM)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.SalleID }) |
+    @Html.ActionLink("Retourner voir la liste", "Index")
+</p>

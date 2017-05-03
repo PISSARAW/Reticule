@@ -1,0 +1,64 @@
+﻿@model Reticule.Models.Salle
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Supprimer</h2>
+
+<h3>Etes-vous sûr de vouloir effectuer une suppression?</h3>
+<div>
+    <h4>Salle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomSalle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomSalle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Batiment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Batiment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Etage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Etage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipement_Fixe.NomEF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipement_Fixe.NomEF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipement_Mobile.NomEM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipement_Mobile.NomEM)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("retrouner voir la liste", "Index")
+        </div>
+    }
+</div>

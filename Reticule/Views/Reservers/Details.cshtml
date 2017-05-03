@@ -1,0 +1,50 @@
+﻿@model Reticule.Models.Reserver
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Détails</h2>
+
+<div>
+    <h4>Reserver une salle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date2Debut)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date2Debut)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date2Fin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date2Fin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipement_Mobile.NomEM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipement_Mobile.NomEM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salle.NomSalle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salle.NomSalle)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.IdReservation }) |
+    @Html.ActionLink("Retourner voir la liste", "Index")
+</p>

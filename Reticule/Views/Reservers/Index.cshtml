@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Reticule.Models.Reserver>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date2Debut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date2Fin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Equipement_Mobile.NomEM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salle.NomSalle)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date2Debut)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date2Fin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Equipement_Mobile.NomEM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Salle.NomSalle)
+        </td>
+        <td>
+            @Html.ActionLink("Modifer", "Edit", new { id=item.IdReservation }) |
+            @Html.ActionLink("Détails", "Details", new { id=item.IdReservation }) |
+            @Html.ActionLink("Supprimer", "Delete", new { id=item.IdReservation })
+        </td>
+    </tr>
+}
+
+</table>

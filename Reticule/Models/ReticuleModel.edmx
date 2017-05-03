@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ReticuleBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Equipement_Fixe">
+          <Key>
+            <PropertyRef Name="EFID" />
+          </Key>
+          <Property Name="EFID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomEF" Type="varchar" MaxLength="25" />
+          <Property Name="TypeEM" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Equipement_Mobile">
+          <Key>
+            <PropertyRef Name="EMID" />
+          </Key>
+          <Property Name="EMID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomEM" Type="varchar" MaxLength="25" />
+          <Property Name="TypeEM" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Reserver">
+          <Key>
+            <PropertyRef Name="IdReservation" />
+          </Key>
+          <Property Name="IdReservation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date2Debut" Type="datetime" />
+          <Property Name="Date2Fin" Type="datetime" />
+          <Property Name="SalleID" Type="int" />
+          <Property Name="EMID" Type="int" />
+        </EntityType>
+        <EntityType Name="Salle">
+          <Key>
+            <PropertyRef Name="SalleID" />
+          </Key>
+          <Property Name="SalleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomSalle" Type="varchar" MaxLength="25" />
+          <Property Name="Batiment" Type="varchar" MaxLength="25" />
+          <Property Name="Etage" Type="varchar" MaxLength="25" />
+          <Property Name="EMID" Type="int" />
+          <Property Name="EFID" Type="int" />
+        </EntityType>
+        <Association Name="FK_Reserver_EMID">
+          <End Role="Equipement_Mobile" Type="Self.Equipement_Mobile" Multiplicity="0..1" />
+          <End Role="Reserver" Type="Self.Reserver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipement_Mobile">
+              <PropertyRef Name="EMID" />
+            </Principal>
+            <Dependent Role="Reserver">
+              <PropertyRef Name="EMID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reserver_SalleID">
+          <End Role="Salle" Type="Self.Salle" Multiplicity="0..1" />
+          <End Role="Reserver" Type="Self.Reserver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salle">
+              <PropertyRef Name="SalleID" />
+            </Principal>
+            <Dependent Role="Reserver">
+              <PropertyRef Name="SalleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salle_EFID">
+          <End Role="Equipement_Fixe" Type="Self.Equipement_Fixe" Multiplicity="0..1" />
+          <End Role="Salle" Type="Self.Salle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipement_Fixe">
+              <PropertyRef Name="EFID" />
+            </Principal>
+            <Dependent Role="Salle">
+              <PropertyRef Name="EFID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salle_EMID">
+          <End Role="Equipement_Mobile" Type="Self.Equipement_Mobile" Multiplicity="0..1" />
+          <End Role="Salle" Type="Self.Salle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipement_Mobile">
+              <PropertyRef Name="EMID" />
+            </Principal>
+            <Dependent Role="Salle">
+              <PropertyRef Name="EMID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ReticuleBaseModelStoreContainer">
+          <EntitySet Name="Equipement_Fixe" EntityType="Self.Equipement_Fixe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equipement_Mobile" EntityType="Self.Equipement_Mobile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reserver" EntityType="Self.Reserver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salle" EntityType="Self.Salle" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Reserver_EMID" Association="Self.FK_Reserver_EMID">
+            <End Role="Equipement_Mobile" EntitySet="Equipement_Mobile" />
+            <End Role="Reserver" EntitySet="Reserver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reserver_SalleID" Association="Self.FK_Reserver_SalleID">
+            <End Role="Salle" EntitySet="Salle" />
+            <End Role="Reserver" EntitySet="Reserver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salle_EFID" Association="Self.FK_Salle_EFID">
+            <End Role="Equipement_Fixe" EntitySet="Equipement_Fixe" />
+            <End Role="Salle" EntitySet="Salle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salle_EMID" Association="Self.FK_Salle_EMID">
+            <End Role="Equipement_Mobile" EntitySet="Equipement_Mobile" />
+            <End Role="Salle" EntitySet="Salle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ReticuleBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Equipement_Fixe">
+          <Key>
+            <PropertyRef Name="EFID" />
+          </Key>
+          <Property Name="EFID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomEF" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="TypeEM" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Salles" Relationship="Self.FK_Salle_EFID" FromRole="Equipement_Fixe" ToRole="Salle" />
+        </EntityType>
+        <EntityType Name="Equipement_Mobile">
+          <Key>
+            <PropertyRef Name="EMID" />
+          </Key>
+          <Property Name="EMID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomEM" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="TypeEM" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Reservers" Relationship="Self.FK_Reserver_EMID" FromRole="Equipement_Mobile" ToRole="Reserver" />
+          <NavigationProperty Name="Salles" Relationship="Self.FK_Salle_EMID" FromRole="Equipement_Mobile" ToRole="Salle" />
+        </EntityType>
+        <EntityType Name="Reserver">
+          <Key>
+            <PropertyRef Name="IdReservation" />
+          </Key>
+          <Property Name="IdReservation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date2Debut" Type="DateTime" Precision="3" />
+          <Property Name="Date2Fin" Type="DateTime" Precision="3" />
+          <Property Name="SalleID" Type="Int32" />
+          <Property Name="EMID" Type="Int32" />
+          <NavigationProperty Name="Equipement_Mobile" Relationship="Self.FK_Reserver_EMID" FromRole="Reserver" ToRole="Equipement_Mobile" />
+          <NavigationProperty Name="Salle" Relationship="Self.FK_Reserver_SalleID" FromRole="Reserver" ToRole="Salle" />
+        </EntityType>
+        <EntityType Name="Salle">
+          <Key>
+            <PropertyRef Name="SalleID" />
+          </Key>
+          <Property Name="SalleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomSalle" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Batiment" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Etage" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="EMID" Type="Int32" />
+          <Property Name="EFID" Type="Int32" />
+          <NavigationProperty Name="Equipement_Fixe" Relationship="Self.FK_Salle_EFID" FromRole="Salle" ToRole="Equipement_Fixe" />
+          <NavigationProperty Name="Equipement_Mobile" Relationship="Self.FK_Salle_EMID" FromRole="Salle" ToRole="Equipement_Mobile" />
+          <NavigationProperty Name="Reservers" Relationship="Self.FK_Reserver_SalleID" FromRole="Salle" ToRole="Reserver" />
+        </EntityType>
+        <Association Name="FK_Salle_EFID">
+          <End Role="Equipement_Fixe" Type="Self.Equipement_Fixe" Multiplicity="0..1" />
+          <End Role="Salle" Type="Self.Salle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipement_Fixe">
+              <PropertyRef Name="EFID" />
+            </Principal>
+            <Dependent Role="Salle">
+              <PropertyRef Name="EFID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reserver_EMID">
+          <End Role="Equipement_Mobile" Type="Self.Equipement_Mobile" Multiplicity="0..1" />
+          <End Role="Reserver" Type="Self.Reserver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipement_Mobile">
+              <PropertyRef Name="EMID" />
+            </Principal>
+            <Dependent Role="Reserver">
+              <PropertyRef Name="EMID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salle_EMID">
+          <End Role="Equipement_Mobile" Type="Self.Equipement_Mobile" Multiplicity="0..1" />
+          <End Role="Salle" Type="Self.Salle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipement_Mobile">
+              <PropertyRef Name="EMID" />
+            </Principal>
+            <Dependent Role="Salle">
+              <PropertyRef Name="EMID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reserver_SalleID">
+          <End Role="Salle" Type="Self.Salle" Multiplicity="0..1" />
+          <End Role="Reserver" Type="Self.Reserver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salle">
+              <PropertyRef Name="SalleID" />
+            </Principal>
+            <Dependent Role="Reserver">
+              <PropertyRef Name="SalleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ReticuleBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Equipement_Fixe" EntityType="Self.Equipement_Fixe" />
+          <EntitySet Name="Equipement_Mobile" EntityType="Self.Equipement_Mobile" />
+          <EntitySet Name="Reservers" EntityType="Self.Reserver" />
+          <EntitySet Name="Salles" EntityType="Self.Salle" />
+          <AssociationSet Name="FK_Salle_EFID" Association="Self.FK_Salle_EFID">
+            <End Role="Equipement_Fixe" EntitySet="Equipement_Fixe" />
+            <End Role="Salle" EntitySet="Salles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reserver_EMID" Association="Self.FK_Reserver_EMID">
+            <End Role="Equipement_Mobile" EntitySet="Equipement_Mobile" />
+            <End Role="Reserver" EntitySet="Reservers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salle_EMID" Association="Self.FK_Salle_EMID">
+            <End Role="Equipement_Mobile" EntitySet="Equipement_Mobile" />
+            <End Role="Salle" EntitySet="Salles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reserver_SalleID" Association="Self.FK_Reserver_SalleID">
+            <End Role="Salle" EntitySet="Salles" />
+            <End Role="Reserver" EntitySet="Reservers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ReticuleBaseModelStoreContainer" CdmEntityContainer="ReticuleBaseEntities">
+          <EntitySetMapping Name="Equipement_Fixe">
+            <EntityTypeMapping TypeName="ReticuleBaseModel.Equipement_Fixe">
+              <MappingFragment StoreEntitySet="Equipement_Fixe">
+                <ScalarProperty Name="EFID" ColumnName="EFID" />
+                <ScalarProperty Name="NomEF" ColumnName="NomEF" />
+                <ScalarProperty Name="TypeEM" ColumnName="TypeEM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equipement_Mobile">
+            <EntityTypeMapping TypeName="ReticuleBaseModel.Equipement_Mobile">
+              <MappingFragment StoreEntitySet="Equipement_Mobile">
+                <ScalarProperty Name="EMID" ColumnName="EMID" />
+                <ScalarProperty Name="NomEM" ColumnName="NomEM" />
+                <ScalarProperty Name="TypeEM" ColumnName="TypeEM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservers">
+            <EntityTypeMapping TypeName="ReticuleBaseModel.Reserver">
+              <MappingFragment StoreEntitySet="Reserver">
+                <ScalarProperty Name="IdReservation" ColumnName="IdReservation" />
+                <ScalarProperty Name="Date2Debut" ColumnName="Date2Debut" />
+                <ScalarProperty Name="Date2Fin" ColumnName="Date2Fin" />
+                <ScalarProperty Name="SalleID" ColumnName="SalleID" />
+                <ScalarProperty Name="EMID" ColumnName="EMID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salles">
+            <EntityTypeMapping TypeName="ReticuleBaseModel.Salle">
+              <MappingFragment StoreEntitySet="Salle">
+                <ScalarProperty Name="SalleID" ColumnName="SalleID" />
+                <ScalarProperty Name="NomSalle" ColumnName="NomSalle" />
+                <ScalarProperty Name="Batiment" ColumnName="Batiment" />
+                <ScalarProperty Name="Etage" ColumnName="Etage" />
+                <ScalarProperty Name="EMID" ColumnName="EMID" />
+                <ScalarProperty Name="EFID" ColumnName="EFID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

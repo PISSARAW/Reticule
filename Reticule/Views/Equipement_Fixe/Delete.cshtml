@@ -1,0 +1,40 @@
+﻿@model Reticule.Models.Equipement_Fixe
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Equipement_Fixe</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomEF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomEF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeEM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeEM)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

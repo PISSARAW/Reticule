@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ReticuleBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Equipement_Fixe">
+    <Key>
+      <PropertyRef Name="EFID" />
+    </Key>
+    <Property Name="EFID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomEF" Type="varchar" MaxLength="25" />
+    <Property Name="TypeEM" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Equipement_Mobile">
+    <Key>
+      <PropertyRef Name="EMID" />
+    </Key>
+    <Property Name="EMID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomEM" Type="varchar" MaxLength="25" />
+    <Property Name="TypeEM" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Reserver">
+    <Key>
+      <PropertyRef Name="IdReservation" />
+    </Key>
+    <Property Name="IdReservation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date2Debut" Type="datetime" />
+    <Property Name="Date2Fin" Type="datetime" />
+    <Property Name="SalleID" Type="int" />
+    <Property Name="EMID" Type="int" />
+  </EntityType>
+  <EntityType Name="Salle">
+    <Key>
+      <PropertyRef Name="SalleID" />
+    </Key>
+    <Property Name="SalleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomSalle" Type="varchar" MaxLength="25" />
+    <Property Name="Batiment" Type="varchar" MaxLength="25" />
+    <Property Name="Etage" Type="varchar" MaxLength="25" />
+    <Property Name="EMID" Type="int" />
+    <Property Name="EFID" Type="int" />
+  </EntityType>
+  <Association Name="FK_Reserver_EMID">
+    <End Role="Equipement_Mobile" Type="Self.Equipement_Mobile" Multiplicity="0..1" />
+    <End Role="Reserver" Type="Self.Reserver" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipement_Mobile">
+        <PropertyRef Name="EMID" />
+      </Principal>
+      <Dependent Role="Reserver">
+        <PropertyRef Name="EMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reserver_SalleID">
+    <End Role="Salle" Type="Self.Salle" Multiplicity="0..1" />
+    <End Role="Reserver" Type="Self.Reserver" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Salle">
+        <PropertyRef Name="SalleID" />
+      </Principal>
+      <Dependent Role="Reserver">
+        <PropertyRef Name="SalleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Salle_EFID">
+    <End Role="Equipement_Fixe" Type="Self.Equipement_Fixe" Multiplicity="0..1" />
+    <End Role="Salle" Type="Self.Salle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipement_Fixe">
+        <PropertyRef Name="EFID" />
+      </Principal>
+      <Dependent Role="Salle">
+        <PropertyRef Name="EFID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Salle_EMID">
+    <End Role="Equipement_Mobile" Type="Self.Equipement_Mobile" Multiplicity="0..1" />
+    <End Role="Salle" Type="Self.Salle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipement_Mobile">
+        <PropertyRef Name="EMID" />
+      </Principal>
+      <Dependent Role="Salle">
+        <PropertyRef Name="EMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ReticuleBaseModelStoreContainer">
+    <EntitySet Name="Equipement_Fixe" EntityType="Self.Equipement_Fixe" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Equipement_Mobile" EntityType="Self.Equipement_Mobile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reserver" EntityType="Self.Reserver" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Salle" EntityType="Self.Salle" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Reserver_EMID" Association="Self.FK_Reserver_EMID">
+      <End Role="Equipement_Mobile" EntitySet="Equipement_Mobile" />
+      <End Role="Reserver" EntitySet="Reserver" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reserver_SalleID" Association="Self.FK_Reserver_SalleID">
+      <End Role="Salle" EntitySet="Salle" />
+      <End Role="Reserver" EntitySet="Reserver" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Salle_EFID" Association="Self.FK_Salle_EFID">
+      <End Role="Equipement_Fixe" EntitySet="Equipement_Fixe" />
+      <End Role="Salle" EntitySet="Salle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Salle_EMID" Association="Self.FK_Salle_EMID">
+      <End Role="Equipement_Mobile" EntitySet="Equipement_Mobile" />
+      <End Role="Salle" EntitySet="Salle" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

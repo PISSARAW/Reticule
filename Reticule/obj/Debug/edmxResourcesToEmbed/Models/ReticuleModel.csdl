@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ReticuleBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Equipement_Fixe">
+    <Key>
+      <PropertyRef Name="EFID" />
+    </Key>
+    <Property Name="EFID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomEF" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="TypeEM" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Salles" Relationship="Self.FK_Salle_EFID" FromRole="Equipement_Fixe" ToRole="Salle" />
+  </EntityType>
+  <EntityType Name="Equipement_Mobile">
+    <Key>
+      <PropertyRef Name="EMID" />
+    </Key>
+    <Property Name="EMID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomEM" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="TypeEM" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Reservers" Relationship="Self.FK_Reserver_EMID" FromRole="Equipement_Mobile" ToRole="Reserver" />
+    <NavigationProperty Name="Salles" Relationship="Self.FK_Salle_EMID" FromRole="Equipement_Mobile" ToRole="Salle" />
+  </EntityType>
+  <EntityType Name="Reserver">
+    <Key>
+      <PropertyRef Name="IdReservation" />
+    </Key>
+    <Property Name="IdReservation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date2Debut" Type="DateTime" Precision="3" />
+    <Property Name="Date2Fin" Type="DateTime" Precision="3" />
+    <Property Name="SalleID" Type="Int32" />
+    <Property Name="EMID" Type="Int32" />
+    <NavigationProperty Name="Equipement_Mobile" Relationship="Self.FK_Reserver_EMID" FromRole="Reserver" ToRole="Equipement_Mobile" />
+    <NavigationProperty Name="Salle" Relationship="Self.FK_Reserver_SalleID" FromRole="Reserver" ToRole="Salle" />
+  </EntityType>
+  <EntityType Name="Salle">
+    <Key>
+      <PropertyRef Name="SalleID" />
+    </Key>
+    <Property Name="SalleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomSalle" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Batiment" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Etage" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="EMID" Type="Int32" />
+    <Property Name="EFID" Type="Int32" />
+    <NavigationProperty Name="Equipement_Fixe" Relationship="Self.FK_Salle_EFID" FromRole="Salle" ToRole="Equipement_Fixe" />
+    <NavigationProperty Name="Equipement_Mobile" Relationship="Self.FK_Salle_EMID" FromRole="Salle" ToRole="Equipement_Mobile" />
+    <NavigationProperty Name="Reservers" Relationship="Self.FK_Reserver_SalleID" FromRole="Salle" ToRole="Reserver" />
+  </EntityType>
+  <Association Name="FK_Salle_EFID">
+    <End Role="Equipement_Fixe" Type="Self.Equipement_Fixe" Multiplicity="0..1" />
+    <End Role="Salle" Type="Self.Salle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipement_Fixe">
+        <PropertyRef Name="EFID" />
+      </Principal>
+      <Dependent Role="Salle">
+        <PropertyRef Name="EFID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reserver_EMID">
+    <End Role="Equipement_Mobile" Type="Self.Equipement_Mobile" Multiplicity="0..1" />
+    <End Role="Reserver" Type="Self.Reserver" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipement_Mobile">
+        <PropertyRef Name="EMID" />
+      </Principal>
+      <Dependent Role="Reserver">
+        <PropertyRef Name="EMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Salle_EMID">
+    <End Role="Equipement_Mobile" Type="Self.Equipement_Mobile" Multiplicity="0..1" />
+    <End Role="Salle" Type="Self.Salle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipement_Mobile">
+        <PropertyRef Name="EMID" />
+      </Principal>
+      <Dependent Role="Salle">
+        <PropertyRef Name="EMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reserver_SalleID">
+    <End Role="Salle" Type="Self.Salle" Multiplicity="0..1" />
+    <End Role="Reserver" Type="Self.Reserver" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Salle">
+        <PropertyRef Name="SalleID" />
+      </Principal>
+      <Dependent Role="Reserver">
+        <PropertyRef Name="SalleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ReticuleBaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Equipement_Fixe" EntityType="Self.Equipement_Fixe" />
+    <EntitySet Name="Equipement_Mobile" EntityType="Self.Equipement_Mobile" />
+    <EntitySet Name="Reservers" EntityType="Self.Reserver" />
+    <EntitySet Name="Salles" EntityType="Self.Salle" />
+    <AssociationSet Name="FK_Salle_EFID" Association="Self.FK_Salle_EFID">
+      <End Role="Equipement_Fixe" EntitySet="Equipement_Fixe" />
+      <End Role="Salle" EntitySet="Salles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reserver_EMID" Association="Self.FK_Reserver_EMID">
+      <End Role="Equipement_Mobile" EntitySet="Equipement_Mobile" />
+      <End Role="Reserver" EntitySet="Reservers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Salle_EMID" Association="Self.FK_Salle_EMID">
+      <End Role="Equipement_Mobile" EntitySet="Equipement_Mobile" />
+      <End Role="Salle" EntitySet="Salles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reserver_SalleID" Association="Self.FK_Reserver_SalleID">
+      <End Role="Salle" EntitySet="Salles" />
+      <End Role="Reserver" EntitySet="Reservers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

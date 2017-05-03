@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a2b688ffd8dc4dc2b3b4934c122da502" Name="Diagram1">
+        <EntityTypeShape EntityType="ReticuleBaseModel.Equipement_Fixe" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" FillColor="Aqua" />
+        <EntityTypeShape EntityType="ReticuleBaseModel.Equipement_Mobile" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" FillColor="Aqua" />
+        <EntityTypeShape EntityType="ReticuleBaseModel.Reserver" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" FillColor="Salmon" />
+        <EntityTypeShape EntityType="ReticuleBaseModel.Salle" Width="1.5" PointX="6" PointY="3.25" IsExpanded="true" />
+        <AssociationConnector Association="ReticuleBaseModel.FK_Salle_EFID" ManuallyRouted="false" />
+        <AssociationConnector Association="ReticuleBaseModel.FK_Reserver_EMID" ManuallyRouted="false" />
+        <AssociationConnector Association="ReticuleBaseModel.FK_Salle_EMID" ManuallyRouted="false" />
+        <AssociationConnector Association="ReticuleBaseModel.FK_Reserver_SalleID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

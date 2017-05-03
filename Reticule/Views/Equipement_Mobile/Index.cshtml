@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Reticule.Models.Equipement_Mobile>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Créer Nouveau", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NomEM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeEM)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomEM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeEM)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EMID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EMID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EMID })
+        </td>
+    </tr>
+}
+
+</table>

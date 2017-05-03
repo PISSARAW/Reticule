@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ReticuleBaseModelStoreContainer" CdmEntityContainer="ReticuleBaseEntities">
+    <EntitySetMapping Name="Equipement_Fixe">
+      <EntityTypeMapping TypeName="ReticuleBaseModel.Equipement_Fixe">
+        <MappingFragment StoreEntitySet="Equipement_Fixe">
+          <ScalarProperty Name="EFID" ColumnName="EFID" />
+          <ScalarProperty Name="NomEF" ColumnName="NomEF" />
+          <ScalarProperty Name="TypeEM" ColumnName="TypeEM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Equipement_Mobile">
+      <EntityTypeMapping TypeName="ReticuleBaseModel.Equipement_Mobile">
+        <MappingFragment StoreEntitySet="Equipement_Mobile">
+          <ScalarProperty Name="EMID" ColumnName="EMID" />
+          <ScalarProperty Name="NomEM" ColumnName="NomEM" />
+          <ScalarProperty Name="TypeEM" ColumnName="TypeEM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reservers">
+      <EntityTypeMapping TypeName="ReticuleBaseModel.Reserver">
+        <MappingFragment StoreEntitySet="Reserver">
+          <ScalarProperty Name="IdReservation" ColumnName="IdReservation" />
+          <ScalarProperty Name="Date2Debut" ColumnName="Date2Debut" />
+          <ScalarProperty Name="Date2Fin" ColumnName="Date2Fin" />
+          <ScalarProperty Name="SalleID" ColumnName="SalleID" />
+          <ScalarProperty Name="EMID" ColumnName="EMID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Salles">
+      <EntityTypeMapping TypeName="ReticuleBaseModel.Salle">
+        <MappingFragment StoreEntitySet="Salle">
+          <ScalarProperty Name="SalleID" ColumnName="SalleID" />
+          <ScalarProperty Name="NomSalle" ColumnName="NomSalle" />
+          <ScalarProperty Name="Batiment" ColumnName="Batiment" />
+          <ScalarProperty Name="Etage" ColumnName="Etage" />
+          <ScalarProperty Name="EMID" ColumnName="EMID" />
+          <ScalarProperty Name="EFID" ColumnName="EFID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
